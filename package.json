@@ -19,4 +19,7 @@
     "url": "https://github.com/devdhjo/nodejs_opentutorials/issues"
   },
   "homepage": "https://github.com/devdhjo/nodejs_opentutorials#readme",
+  "dependencies": {
+    "sanitize-html": "^1.22.1"
+  }
 }
