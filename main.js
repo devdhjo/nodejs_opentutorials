@@ -31,20 +31,16 @@ var app = http.createServer(function(request,response) {
         response.end(html);
       })
     } else {
-      fs.readdir('./data', 'utf8', function(error, filelist) {
-        var filteredId = path.parse(queryData.id).base;
-        fs.readFile(`data/${filteredId}`, 'utf8', function(err, description) {
-          var title = queryData.id;
-          var sanitizeTitle = sanitizeHtml(title);
-          var sanitizeDesc = sanitizeHtml(description, {
-            allowedTags:['h1']
-          });
-          var list = template.list(filelist);
+      db.query('SELECT * FROM topic', function(error, topics) {
+        db.query(`SELECT * FROM topic WHERE id=?`, [queryData.id], function(error2, topic) {
+          var title = topic[0].title;
+          var description = topic[0].description;
+          var list = template.list(topics);
           var html = template.HTML(title, list,
-            `<h2>${sanitizeTitle}</h2><p>${sanitizeDesc}</p>`,
-            `<a href="/create">Create</a> <a href="/update?id=${sanitizeTitle}">Update</a>
+            `<h2>${title}</h2><p>${description}</p>`,
+            `<a href="/create">Create</a> <a href="/update?id=${queryData.id}">Update</a>
              <form action="delete_process" method="post">
-               <input type="hidden" name="id" value="${sanitizeTitle}">
+               <input type="hidden" name="id" value="${queryData.id}">
                <input type="submit" value="Delete">
              </form>
             `);
