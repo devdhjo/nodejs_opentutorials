@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var topic = require('./lib/topic');
+var author = require('./lib/author');
 
 var app = http.createServer(function(request,response) {
   var queryData = url.parse(request.url, true).query;
@@ -21,6 +22,8 @@ var app = http.createServer(function(request,response) {
     topic.update_process(request, response);
   } else if (pathname == '/delete_process') {
     topic.delete_process(request, response);
+  } else if (pathname == '/author') {
+    author.home(request, response);
   } else {
     response.writeHead(404);
     response.end('Not found');
