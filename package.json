@@ -21,6 +21,6 @@
   "homepage": "https://github.com/devdhjo/nodejs_opentutorials#readme",
   "dependencies": {
     "mysql": "^2.18.1",
-    "sanitize-html": "^1.22.1"
+    "sanitize-html": "^2.3.2"
   }
 }
